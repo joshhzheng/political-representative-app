@@ -1,0 +1,9 @@
+rerun nvm use 13 when opening a terminal to use 13
+
+run bin/webpack-dev-server to launch a webpacker instance to live reload browser as javascript or CSS styles are edited
+run bundle exec rails server -b 0.0.0.0 to launch the website
+
+run -a option to rubocop or lint_fix instead of lint for automated fix for ruby or yarn
+run bundle exec rubocop to run a linter for ruby
+run yarn run lint for a javascript linter
+run bundle exec haml-lint to run a linter for haml that generates html
