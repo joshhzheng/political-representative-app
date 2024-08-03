@@ -5,7 +5,7 @@ require 'spec_helper'
 require 'google/apis/civicinfo_v2'
 
 describe Representative do
-  describe 'check API call for Representative models' do
+  describe '.civic_api_to_representative_params' do
     let(:officials) do
       [
         instance_double(Google::Apis::CivicinfoV2::Official, name: 'John Doe'),
@@ -46,7 +46,7 @@ official_indices: [1])
     it 'checks if reps already exists in db' do
       # p described_class.all
       @reps = described_class.civic_api_to_representative_params(rep_info) # second call
-      expect(@reps.size).to eq(2)
+      expect(@reps.size).to eq(0)
       expect(described_class.count).to eq(2)
       # p described_class.all
       expect(described_class.where(name: 'John Doe').count).to eq 1
