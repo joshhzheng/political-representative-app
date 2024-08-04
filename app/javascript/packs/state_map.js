@@ -16,10 +16,6 @@ $(document).ready(() => {
             .attr('data-county-name', (d) => stateMap.counties[d.properties.COUNTYFP].name)
             .attr('data-county-fips-code', (d) => d.properties.COUNTYFP);
 
-        const clickCallback = (elem) => {
-            const county = elem.attr('data-county-name');   // or should this be fips code?
-            window.location.href = `/search/${county}`;
-        };  
-        stateMapUtils.setupEventHandlers(stateMapUtils, clickCallback);
+        stateMapUtils.setupEventHandlers(stateMap);
     });
 });
