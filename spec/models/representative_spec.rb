@@ -4,56 +4,81 @@ require 'rails_helper'
 require 'spec_helper'
 require 'google/apis/civicinfo_v2'
 
+####
 describe Representative do
-  describe '.civic_api_to_representative_params' do
-    let(:officials) do
+  describe 'Representative' do
+    let(:two_officials) do
       [
         instance_double(Google::Apis::CivicinfoV2::Official, name: 'John Doe'),
         instance_double(Google::Apis::CivicinfoV2::Official, name: 'Jane Smith')
       ]
     end
-    let(:offices) do
+    let(:two_offices) do
       [
         instance_double(Google::Apis::CivicinfoV2::Office, name: 'Senator', division_id: 'ocd-1234',
-official_indices: [0]),
+                        official_indices: [0]),
         instance_double(Google::Apis::CivicinfoV2::Office, name: 'Representative', division_id: 'ocd-5678',
-official_indices: [1])
+                        official_indices: [1])
       ]
     end
     let(:rep_info) do
-      instance_double(Google::Apis::CivicinfoV2::RepresentativeInfoResponse, officials: officials, offices: offices)
+      instance_double(Google::Apis::CivicinfoV2::RepresentativeInfoResponse,
+                      officials: two_officials, offices: two_offices)
     end
 
     before do
-      @reps = described_class.civic_api_to_representative_params(rep_info)
+      described_class.civic_api_to_representative_params(rep_info)
     end
 
-    it 'checks if the models save data from API call' do
-      expect(@reps.count).to eq(2)
-      expect(described_class.count).to eq(2)
-      expect(described_class.where(name: 'John Doe').count).to eq 1
-      expect(described_class.where(name: 'Jane Smith').count).to eq 1
-    end
+    context 'when making an API call' do
+      it 'stores correct data count' do
+        expect(described_class.count).to eq(two_officials.count)
+      end
 
-    it 'checks if the models saved correctly' do
-      # r = @reps.find { |rep| rep.name == 'John Doe' }
-      r = described_class.find { |rep| rep.name == 'John Doe' }
-      expect(r).to be_present
-      expect(r.title).to eq('Senator')
-      expect(r.ocdid).to eq('ocd-1234')
-    end
+      it 'saves correct count of given names' do
+        expect(described_class.where(name: two_officials[0].name).count).to eq 1
+        expect(described_class.where(name: two_officials[1].name).count).to eq 1
+      end
 
-    it 'checks if reps already exists in db' do
-      # p described_class.all
-      @reps = described_class.civic_api_to_representative_params(rep_info) # second call
-      expect(@reps.size).to eq(0)
-      expect(described_class.count).to eq(2)
-      # p described_class.all
-      expect(described_class.where(name: 'John Doe').count).to eq 1
-      expect(described_class.where(name: 'Jane Smith').count).to eq 1
-    end
+      it 'saves added representative data' do
+        representative1 = described_class.find { |rep| rep.name == two_officials[0].name }
+        expect(representative1).to be_present
+        expect(representative1.title).to eq(two_offices[0].name)
+        expect(representative1.ocdid).to eq(two_offices[0].division_id)
 
-    it 'checks if models updated with new value'
-    it 'checks if value is nil'
+        representative2 = described_class.find { |rep| rep.name == two_officials[1].name }
+        expect(representative2).to be_present
+        expect(representative2.title).to eq(two_offices[1].name)
+        expect(representative2.ocdid).to eq(two_offices[1].division_id)
+      end
+
+      context 'after duplicate representative call' do
+        it 'will not create duplicates' do
+          duplicate_representative_call = described_class.civic_api_to_representative_params(rep_info) # second call
+          expect(duplicate_representative_call.size).to eq(0)
+        end
+
+        it 'will not alter existing database count' do
+          expect(described_class.count).to eq(two_officials.count)
+        end
+      end
+
+      it 'updates models with new value' do
+        representative_name = two_officials[0].name
+        new_office = 'Judge'
+
+        #expect(described_class[0]).to eq('asdfjkladsf')
+        described_class.find_by(name:representative_name).update(title:new_office)
+        expect(described_class \
+                 .find_by(name:representative_name) \
+                    .title) \
+                 .to eq(new_office)
+      end
+
+      it 'checks if value is nil' do
+        ## what is returned when database call is ' '
+      end
+    end
   end
 end
+
