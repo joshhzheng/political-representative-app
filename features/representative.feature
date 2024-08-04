@@ -1,17 +1,11 @@
-Feature: Display Representatives when County is clicked 
+Feature: Map Interaction
 
-  As a user
-  So that I can view the Representatives for a county 
-  I want to click the button to display everything
+  Scenario: Clicking on a state displays counties
+    Given I am on the map page
+    When I click on "California"
+    Then I should see a list of counties in California
 
-  Background: Representatives have been added to the database
-
-  Given the following Representatives exist:
-
-  And I am on the ___ page
-
-  Scenario: 
-    When I ... 
-
-    
-
+  Scenario: Clicking on a county displays representatives
+    Given I am viewing counties in California
+    When I click on "Los Angeles County"
+    Then I should see representatives for Los Angeles County
