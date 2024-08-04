@@ -1,22 +1,24 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Representatives", type: :request do
+RSpec.describe 'Representatives', type: :request do
   before do
     @representative = Representative.create!(
-      name: 'John Doe',
-      ocdid: 'ocd-division/country:us/state:ca/sldl:12',
-      title: 'Assembly Member',
+      name:            'John Doe',
+      ocdid:           'ocd-division/country:us/state:ca/sldl:12',
+      title:           'Assembly Member',
       contact_address: '123 Main St',
-      contact_city: 'Sacramento',
-      contact_state: 'CA',
-      contact_zip: '95814',
+      contact_city:    'Sacramento',
+      contact_state:   'CA',
+      contact_zip:     '95814',
       political_party: 'Democratic',
-      photo_url: 'https://example.com/photo.jpg'
+      photo_url:       'https://example.com/photo.jpg'
     )
   end
 
-  describe "GET /representatives/:id" do
-    it "returns the representative profile page" do
+  describe 'GET /representatives/:id' do
+    it 'returns the representative profile page' do
       get representative_path(@representative)
       expect(response).to have_http_status(:ok)
       expect(response.body).to include(@representative.name)

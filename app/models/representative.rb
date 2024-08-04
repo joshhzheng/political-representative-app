@@ -17,30 +17,30 @@ class Representative < ApplicationRecord
       photo_temp = official.photoUrl || ''
 
       rep_info.offices.each do |office|
-        if office.official_indices.include? index
-          title_temp = office.name
-          ocdid_temp = office.division_id
-          if official.address.present?
-            address = official.address.first
-            address_temp = address.line1
-            city_temp = address.city
-            state_temp = address.state
-            zip_temp = address.zip
-          end
-        end
+        next unless office.official_indices.include? index
+
+        title_temp = office.name
+        ocdid_temp = office.division_id
+        next if official.address.blank?
+
+        address = official.address.first
+        address_temp = address.line1
+        city_temp = address.city
+        state_temp = address.state
+        zip_temp = address.zip
       end
 
       rep = Representative.create!({
-        name: official.name,
-        ocdid: ocdid_temp,
-        title: title_temp,
-        contact_address: address_temp,
-        contact_city: city_temp,
-        contact_state: state_temp,
-        contact_zip: zip_temp,
-        political_party: party_temp,
-        photo_url: photo_temp
-      })
+                                     name:            official.name,
+                                     ocdid:           ocdid_temp,
+                                     title:           title_temp,
+                                     contact_address: address_temp,
+                                     contact_city:    city_temp,
+                                     contact_state:   state_temp,
+                                     contact_zip:     zip_temp,
+                                     political_party: party_temp,
+                                     photo_url:       photo_temp
+                                   })
       reps.push(rep)
     end
 
