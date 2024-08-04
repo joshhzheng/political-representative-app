@@ -1,4 +1,4 @@
-ddd# frozen_string_literal: true
+# frozen_string_literal: true
 
 require 'rails_helper'
 
@@ -32,4 +32,4 @@ RSpec.describe RepresentativesController, type: :controller do
       expect(assigns(:representatives)).to include(@representative)
     end
   end
-dend
+end
