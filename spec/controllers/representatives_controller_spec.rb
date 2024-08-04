@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+ddd# frozen_string_literal: true
 
 require 'rails_helper'
 
@@ -24,4 +24,12 @@ RSpec.describe RepresentativesController, type: :controller do
       expect(assigns(:representative)).to eq(@representative)
     end
   end
-end
+
+  describe 'GET #index' do
+    it 'returns a successful response' do
+      get :index
+      expect(response).to have_http_status(:ok)
+      expect(assigns(:representatives)).to include(@representative)
+    end
+  end
+dend
