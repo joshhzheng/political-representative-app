@@ -9,3 +9,4 @@ Feature: Representative Profile
     And I should see the representative's political party
     And I should see the representative's photo
     
+    
