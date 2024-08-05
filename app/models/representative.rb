@@ -4,8 +4,9 @@ class Representative < ApplicationRecord
   has_many :news_items, dependent: :delete_all
 
   def self.civic_api_to_representative_params(rep_info)
-    reps = []
+    raise ArgumentError, 'Invalid representative input.' if rep_info.blank?
 
+    reps = []
     rep_info.officials.each_with_index do |official, index|
       title_temp = ''
       ocdid_temp = ''

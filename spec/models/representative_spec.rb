@@ -29,7 +29,7 @@ describe Representative do
       described_class.civic_api_to_representative_params(rep_info)
     end
 
-    context 'when making an API call' do
+    context 'when adding representatives in API call' do
       it 'stores correct data count' do
         expect(described_class.count).to eq(two_officials.count)
       end
@@ -46,21 +46,29 @@ describe Representative do
         expect(representative1.ocdid).to eq(two_offices[0].division_id)
       end
 
-      it 'will not create duplicates' do
-        duplicate_representative_call = described_class.civic_api_to_representative_params(rep_info) # second call
-        expect(duplicate_representative_call.size).to eq(2)
-      end
-
-      it 'will not alter existing database count' do
-        expect(described_class.count).to eq(two_officials.count)
-      end
-
       it 'updates models with new value' do
         representative_name = two_officials[0].name
         new_office = 'Judge'
 
         described_class.find_by(name: representative_name).update(title: new_office)
         expect(described_class.find_by(name: representative_name).title).to eq(new_office)
+      end
+    end
+
+    context 'when making duplicate calls' do
+      it 'will not create duplicate entries' do
+        duplicate_representative_call = described_class.civic_api_to_representative_params(rep_info)
+        expect(duplicate_representative_call.size).to eq(2)
+      end
+
+      it 'will not alter existing database count' do
+        expect(described_class.count).to eq(two_officials.count)
+      end
+    end
+
+    context 'when making call with invalid value' do
+      it 'will raise exception' do
+        expect { described_class.civic_api_to_representative_params(nil) }.to raise_error(ArgumentError)
       end
     end
   end

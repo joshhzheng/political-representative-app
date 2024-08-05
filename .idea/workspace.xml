@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39f1d17a-9616-403b-b4ad-c150467b937d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/spec/models/representative_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/models/representative_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,7 +199,7 @@
       <option name="presentableId" value="Default" />
       <updated>1722749448666</updated>
       <workItem from="1722749452000" duration="2414000" />
-      <workItem from="1722751911492" duration="14975000" />
+      <workItem from="1722751911492" duration="17247000" />
     </task>
     <servers />
   </component>
@@ -219,7 +219,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="ruby-line">
           <url>file://$PROJECT_DIR$/app/models/representative.rb</url>
-          <line>14</line>
+          <line>15</line>
           <properties myBlockOrdinal="-1">
             <option name="block-ordinal" value="-1" />
           </properties>
@@ -227,7 +227,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="ruby-line">
           <url>file://$PROJECT_DIR$/app/models/representative.rb</url>
-          <line>15</line>
+          <line>16</line>
           <properties myBlockOrdinal="-1">
             <option name="block-ordinal" value="-1" />
           </properties>
