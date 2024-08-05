@@ -18,14 +18,14 @@ describe SearchController do
       allow(Rails.application.credentials).to receive(:[]).with(:GOOGLE_API_KEY)
                                                           .and_return(fake_api_key)
       allow(fake_service).to receive(:key=).with(fake_api_key)
-      allow(fake_service).to receive(:representative_info_by_address)
-        .with(address: fake_address).and_return(fake_response)
-      allow(Representative).to receive(:civic_api_to_representative_params)
-        .with(fake_response).and_return(fake_results)
     end
 
     describe 'when address is filled' do
       before do
+        allow(fake_service).to receive(:representative_info_by_address)
+          .with(address: fake_address).and_return(fake_response)
+        allow(Representative).to receive(:civic_api_to_representative_params)
+          .with(fake_response).and_return(fake_results)
         get :search, params: { address: fake_address }
       end
 
@@ -53,6 +53,18 @@ describe SearchController do
     describe 'when address is empty' do
       before do
         get :search, params: { address: '' }
+      end
+
+      it 'returns to search page if address is null' do
+        expect(fake_response).to render_template('representatives/index')
+      end
+    end
+
+    describe 'when address is not valid' do
+      before do
+        allow(fake_service).to receive(:representative_info_by_address)
+          .with(address: fake_address).and_raise(Google::Apis::ClientError.new('Bad Request', status_code: 400))
+        get :search, params: { address: fake_address }
       end
 
       it 'returns to search page if address is null' do
