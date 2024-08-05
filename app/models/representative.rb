@@ -28,7 +28,7 @@ class Representative < ApplicationRecord
   end
 
   def self.get_address(official)
-    return '' if official.address.empty?
+    return '' if official.address.blank?
 
     address = official.address.first
     "#{address.line1} #{address.line2} #{address.line3} #{address.city} #{address.state} #{address.zip}"

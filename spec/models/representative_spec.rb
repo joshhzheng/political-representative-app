@@ -31,7 +31,6 @@ describe Representative do
 
     context 'when making an API call' do
       it 'stores correct data count' do
-        p described_class
         expect(described_class.count).to eq(two_officials.count)
       end
 
