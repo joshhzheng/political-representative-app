@@ -2,15 +2,12 @@
 
 Given('there are representatives in the system') do
   @representative = Representative.create!(
-    name:            'John Doe',
-    ocdid:           'ocd-division/country:us/state:ca/sldl:12',
-    title:           'Assembly Member',
-    contact_address: '123 Main St',
-    contact_city:    'Sacramento',
-    contact_state:   'CA',
-    contact_zip:     '95814',
-    political_party: 'Democratic',
-    photo_url:       'https://example.com/photo.jpg'
+    name:    'John Doe',
+    ocdid:   'ocd-division/country:us/state:ca/sldl:12',
+    title:   'Assembly Member',
+    address: '123 Main St Sacramento CA 95814',
+    party:   'Democratic',
+    photo:   'https://example.com/photo.jpg'
   )
 end
 
@@ -27,16 +24,13 @@ Then('I should see the representative\'s office title') do
 end
 
 Then('I should see the representative\'s contact address') do
-  expect(page).to have_content(@representative.contact_address)
-  expect(page).to have_content(@representative.contact_city)
-  expect(page).to have_content(@representative.contact_state)
-  expect(page).to have_content(@representative.contact_zip)
+  expect(page).to have_content(@representative.address)
 end
 
 Then('I should see the representative\'s political party') do
-  expect(page).to have_content(@representative.political_party)
+  expect(page).to have_content(@representative.party)
 end
 
 Then('I should see the representative\'s photo') do
-  expect(page).to have_selector("img[src='#{@representative.photo_url}']")
+  expect(page).to have_selector("img[src='#{@representative.photo}']")
 end
