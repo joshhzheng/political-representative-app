@@ -8,8 +8,8 @@ describe Representative do
   describe 'Representative' do
     let(:two_officials) do
       [
-        instance_double(Google::Apis::CivicinfoV2::Official, name: 'John Doe'),
-        instance_double(Google::Apis::CivicinfoV2::Official, name: 'Jane Smith')
+        instance_double(Google::Apis::CivicinfoV2::Official, name: 'John Doe', address: [], party: '0', photo_url: ''),
+        instance_double(Google::Apis::CivicinfoV2::Official, name: 'Jane Smith', address: [], party: '1', photo_url: '')
       ]
     end
     let(:two_offices) do
@@ -31,6 +31,7 @@ describe Representative do
 
     context 'when making an API call' do
       it 'stores correct data count' do
+        p described_class
         expect(described_class.count).to eq(two_officials.count)
       end
 
