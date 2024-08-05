@@ -12,15 +12,23 @@ class Representative < ApplicationRecord
       address_temp = get_address(official)
 
       rep_info.offices.each do |office|
-        if office.official_indices.include? index
-          title_temp = office.name
-          ocdid_temp = office.division_id
-        end
+        next unless office.official_indices.include? index
+
+        title_temp = office.name
+        ocdid_temp = office.division_id
+        next if official.address.blank?
+
+        address = official.address.first
+        address_temp = address.line1
+        city_temp = address.city
+        state_temp = address.state
+        zip_temp = address.zip
       end
 
       rep = Representative.find_or_create_by!(name: official.name, ocdid: ocdid_temp, title: title_temp,
                                               address: address_temp, party: official.party || '',
                                               photo: official.photo_url || '')
+
       reps.push(rep)
     end
 

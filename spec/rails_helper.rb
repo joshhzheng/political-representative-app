@@ -6,6 +6,7 @@ require 'simplecov'
 SimpleCov.start 'rails' do
   add_filter 'lib'
 end
+
 if ENV['CI']
   require 'codecov'
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
