@@ -5,9 +5,9 @@ describe 'Clicking a county should return a list of representatives' do
     it 'returns an array of representatives' do 
       stub_officials = [
         double('Google::Apis::CivicinfoV2::Official', name: 'Kamala D. Harris', address: nil,
-               party: 'Democratic Party', photo_url: ''),
+               party: 'Democratic Party', photo_url: 'https://example.com/photo.jpg'),
         double('Google::Apis::CivicinfoV2::Official', name: 'Dianne Feinstein', address: nil,
-               party: 'Democratic Party', photo_url: '')
+               party: 'Democratic Party', photo_url: 'https://example.com/photo.jpg')
       ] 
 
       sample_info = double('Google::Apis::CivicinfoV2::RepresentativeInfoResponse')
