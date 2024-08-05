@@ -7,8 +7,8 @@ class Representative < ApplicationRecord
     reps = []
 
     rep_info.officials.each_with_index do |official, index|
-      ocdid_temp = ''
       title_temp = ''
+      ocdid_temp = ''
 
       rep_info.offices.each do |office|
         if office.official_indices.include? index
@@ -17,12 +17,9 @@ class Representative < ApplicationRecord
         end
       end
 
-      unless Representative.exists?(name: official.name, ocdid: ocdid_temp, title: title_temp)
-        rep = Representative.create!(name: official.name, ocdid: ocdid_temp, title: title_temp)
-        reps.push(rep)
-      end
+      rep = Representative.find_or_create_by!(name: official.name, ocdid: ocdid_temp, title: title_temp)
+      reps.push(rep)
     end
-
     reps
   end
 end

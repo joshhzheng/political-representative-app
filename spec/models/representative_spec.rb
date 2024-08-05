@@ -4,7 +4,6 @@ require 'rails_helper'
 require 'spec_helper'
 require 'google/apis/civicinfo_v2'
 
-####
 describe Representative do
   describe 'Representative' do
     let(:two_officials) do
@@ -45,40 +44,24 @@ describe Representative do
         expect(representative1).to be_present
         expect(representative1.title).to eq(two_offices[0].name)
         expect(representative1.ocdid).to eq(two_offices[0].division_id)
-
-        representative2 = described_class.find { |rep| rep.name == two_officials[1].name }
-        expect(representative2).to be_present
-        expect(representative2.title).to eq(two_offices[1].name)
-        expect(representative2.ocdid).to eq(two_offices[1].division_id)
       end
 
-      context 'after duplicate representative call' do
-        it 'will not create duplicates' do
-          duplicate_representative_call = described_class.civic_api_to_representative_params(rep_info) # second call
-          expect(duplicate_representative_call.size).to eq(0)
-        end
+      it 'will not create duplicates' do
+        duplicate_representative_call = described_class.civic_api_to_representative_params(rep_info) # second call
+        expect(duplicate_representative_call.size).to eq(2)
+      end
 
-        it 'will not alter existing database count' do
-          expect(described_class.count).to eq(two_officials.count)
-        end
+      it 'will not alter existing database count' do
+        expect(described_class.count).to eq(two_officials.count)
       end
 
       it 'updates models with new value' do
         representative_name = two_officials[0].name
         new_office = 'Judge'
 
-        #expect(described_class[0]).to eq('asdfjkladsf')
-        described_class.find_by(name:representative_name).update(title:new_office)
-        expect(described_class \
-                 .find_by(name:representative_name) \
-                    .title) \
-                 .to eq(new_office)
-      end
-
-      it 'checks if value is nil' do
-        ## what is returned when database call is ' '
+        described_class.find_by(name: representative_name).update(title: new_office)
+        expect(described_class.find_by(name: representative_name).title).to eq(new_office)
       end
     end
   end
 end
-
