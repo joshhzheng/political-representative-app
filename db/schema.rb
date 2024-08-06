@@ -49,12 +49,7 @@ ActiveRecord::Schema.define(version: 2024_08_05_083802) do
     t.datetime "updated_at", null: false
     t.string "ocdid"
     t.string "title"
-    t.string "contact_address"
-    t.string "contact_city"
-    t.string "contact_state"
-    t.string "contact_zip"
-    t.string "political_party"
-    t.string "photo_url"
+
     t.string "address"
     t.string "party"
     t.string "photo"

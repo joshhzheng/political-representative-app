@@ -4,46 +4,36 @@ class Representative < ApplicationRecord
   has_many :news_items, dependent: :delete_all
 
   def self.civic_api_to_representative_params(rep_info)
-    reps = []
+    raise ArgumentError, 'Invalid representative input.' if rep_info.blank?
 
+    reps = []
     rep_info.officials.each_with_index do |official, index|
-      ocdid_temp = ''
       title_temp = ''
-      address_temp = ''
-      city_temp = ''
-      state_temp = ''
-      zip_temp = ''
-      party_temp = official.party || ''
-      photo_temp = official.photo_url || ''   # changed to photo_url
+
+      ocdid_temp = ''
+      address_temp = get_address(official)
 
       rep_info.offices.each do |office|
-        next unless office.official_indices.include? index
-
-        title_temp = office.name
-        ocdid_temp = office.division_id
-        next if official.address.blank?
-
-        address = official.address.first
-        address_temp = address.line1
-        city_temp = address.city
-        state_temp = address.state
-        zip_temp = address.zip
+        if office.official_indices.include? index
+          title_temp = office.name
+          ocdid_temp = office.division_id
+        end
       end
 
-      rep = Representative.create!({
-                                     name:            official.name,
-                                     ocdid:           ocdid_temp,
-                                     title:           title_temp,
-                                     contact_address: address_temp,
-                                     contact_city:    city_temp,
-                                     contact_state:   state_temp,
-                                     contact_zip:     zip_temp,
-                                     political_party: party_temp,
-                                     photo_url:       photo_temp
-                                   })
+      rep = Representative.find_or_create_by!(name: official.name, ocdid: ocdid_temp, title: title_temp,
+                                              address: address_temp, party: official.party || '',
+                                              photo: official.photo_url || '')
+
       reps.push(rep)
     end
 
     reps
+  end
+
+  def self.get_address(official)
+    return '' if official.address.blank?
+
+    address = official.address.first
+    "#{address.line1} #{address.line2} #{address.line3} #{address.city} #{address.state} #{address.zip}"
   end
 end

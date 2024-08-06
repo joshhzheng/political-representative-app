@@ -5,11 +5,25 @@ require 'google/apis/civicinfo_v2'
 class SearchController < ApplicationController
   def search
     address = params[:address]
+
+    if address.blank?
+      render 'representatives/index'
+      return
+    end
+
     service = Google::Apis::CivicinfoV2::CivicInfoService.new
     service.key = Rails.application.credentials[:GOOGLE_API_KEY]
-    result = service.representative_info_by_address(address: address)
-    @representatives = Representative.civic_api_to_representative_params(result)
 
+    begin
+      result = service.representative_info_by_address(address: address)
+    rescue Google::Apis::ClientError => e
+      if e.status_code == 400
+        render 'representatives/index'
+        return
+      end
+    end
+
+    @representatives = Representative.civic_api_to_representative_params(result)
     render 'representatives/search'
   end
 end
