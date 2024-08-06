@@ -1,0 +1,17 @@
+.container
+    .row
+        .col-md-8.offset-md-2
+            %h1= @representative.name
+            %p
+                %strong Office:
+                = @representative.title
+            %p
+                %strong Party:
+                = @representative.party
+            %p
+                %strong Contact Address:
+                = @representative.address
+            - if @representative.photo.present?
+                %img.img-fluid{ src: @representative.photo, alt: "#{@representative.name}'s photo" }
+            %p
+                = link_to 'Back to Representatives', representatives_path, class: 'btn btn-primary'
