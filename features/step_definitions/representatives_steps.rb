@@ -34,3 +34,21 @@ end
 Then('I should see the representative\'s photo') do
   expect(page).to have_selector("img[src='#{@representative.photo}']")
 end
+
+When(/^I click on state (.+)$/) do |state|
+  visit state_map_path(state)
+end
+
+When(/^I click on county (.+)$/) do |county|
+  visit search_representatives_path(county)
+end
+
+Then(/^I should see text matching "([^"]*)"$/) do |regexp|
+  regexp = Regexp.new(regexp)
+
+  if page.respond_to? :should
+    page.should have_xpath('//*', text: regexp)
+  else
+    assert page.has_xpath?('//*', text: regexp)
+  end
+end
