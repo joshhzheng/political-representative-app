@@ -14,7 +14,7 @@ class Representative < ApplicationRecord
       state_temp = ''
       zip_temp = ''
       party_temp = official.party || ''
-      photo_temp = official.photoUrl || ''
+      photo_temp = official.photo_url || ''   # changed to photo_url
 
       rep_info.offices.each do |office|
         next unless office.official_indices.include? index

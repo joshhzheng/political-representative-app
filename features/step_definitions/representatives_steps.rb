@@ -49,10 +49,12 @@ When(/^I click on county (.+)$/) do |county|
   visit search_representatives_path(county)
 end
 
-Then(/^(?:|I )should see "([^"]*)"$/) do |text|
+Then(/^I should see text matching "([^"]*)"$/) do |regexp|
+  regexp = Regexp.new(regexp)
+
   if page.respond_to? :should
-      page.should have_content(text)
+    page.should have_xpath('//*', text: regexp)
   else
-      assert page.has_content?(text)
+    assert page.has_xpath?('//*', text: regexp)
   end
 end
