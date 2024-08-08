@@ -1,0 +1,56 @@
+.row.mt-2
+    .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
+        %h1.text-center Edit news article
+
+    .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
+        %form{ action: top5search_path, method: :post }
+            .form-group.row
+                .col-sm-2
+                    = label :representative, 'Representative:', class: 'col-form-label'
+                .col-sm-10
+                    -# @selected_representative_name gets the selected rep name from the controller
+                    -# make into hyperlink to rep's profile page when implemented
+                    = text_field_tag :representative, @selected_representative_name, class: 'form-control'
+            .form-group.row
+                .col-sm-2
+                    = label :issue, 'Issue:', class: 'col-form-label'
+                .col-sm-10
+                    -# @selected_issue_name gets the selected issue from the controller
+                    = text_field_tag :issue, @selected_issue_name, class: 'form-control'
+
+            .form-group.row
+                .col-sm-2
+                    = label :articles, 'Select an article:', class: 'col-form-label'
+                .col-sm-10
+                    
+                    -# Display the top 5 articles
+                    -# Pass the fetched articles to view from controller
+                    -# Render the articles in the specified format in this view
+                    -# @top_articles variable holds articles data fetched from the API
+                    -# See if the added radio buttons show up correctly
+
+                    - @top_articles.each_with_index do |article, index|
+                        .form-check
+                            = radio_button_tag :selected_article, article[:url], false, id: "article_#{index}", class: 'form-check-input'
+                            = label_tag "article_#{index}", class: 'form-check-label' do
+                                %strong= article[:title]
+                                %p
+                                    %a{ href: article[:url], target: '_blank' }= article[:url]
+                                %p= article[:description]
+
+            .form-group.row
+                .col-sm-2
+                    = label :rating, 'Rating:', class: 'col-form-label'
+                .col-sm-10
+                    = select_tag :rating, options_for_select((1..5).to_a, params[:rating]), class: 'form-control'
+
+            -# Handle POST request sent on clicking this save button
+            .actions
+                = submit_tag 'Save', class: 'btn btn-primary'
+
+    .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
+        .clearfix.mt-3
+            .float-right
+                = link_to representative_news_items_path(@representative), class: 'btn btn-info' do
+                    View news articles
+                    %i.fas.fa-arrow-right
