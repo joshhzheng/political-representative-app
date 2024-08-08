@@ -1,6 +1,6 @@
 .row.mt-2
     .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
-        %h1.text-center Edit news article
+        %h1.text-center Edit news Item
 
     .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
         = render 'form', news_item: @news_item,
@@ -12,4 +12,9 @@
             .float-right
                 = link_to representative_news_items_path(@representative), class: 'btn btn-info' do
                     View news articles
+                    %i.fas.fa-arrow-right
+                
+                -# This is a temp button that routes to top5search (TODO: change to save button for user to click on)
+                = link_to representative_top5search_path(@representative), class: 'btn btn-info' do
+                    Search for top 5
                     %i.fas.fa-arrow-right

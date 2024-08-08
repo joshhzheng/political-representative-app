@@ -36,6 +36,11 @@ class MyNewsItemsController < SessionController
                 notice: 'News was successfully destroyed.'
   end
 
+  # Control route to views
+  def top5search
+    @representative = Representative.find(params[:representative_id])
+  end
+
   private
 
   def set_representative
