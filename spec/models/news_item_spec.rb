@@ -11,7 +11,7 @@ describe NewsItem do
 
   context 'creates a news item' do
     it 'that is not nil' do
-      expect(news_article1).should_not be_nil
+      expect(news_article1).not_to be_nil
     end
 
     context 'with the correct' do
