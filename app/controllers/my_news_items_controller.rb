@@ -9,7 +9,8 @@ class MyNewsItemsController < SessionController
     @news_item = NewsItem.new
   end
 
-  def edit; end
+  # Adding this: This is the action that will render the select view when a user presses "Add New Article"
+  def select; end
 
   def create
     @news_item = NewsItem.new(news_item_params)
@@ -19,6 +20,19 @@ class MyNewsItemsController < SessionController
     else
       render :new, error: 'An error occurred when creating the news item.'
     end
+  end
+
+  # Adding this, when a user presses "Search" I want this action to set up and call the API and render the search view to show the search results
+  def search
+    representative = params[:representative]
+    issue = params[:issue]
+    
+
+
+
+
+  def fetch_top_articles
+    news_api = News.new(Rails.application.credentials[:NEWS_API_KEY]
   end
 
   def update
@@ -54,6 +68,6 @@ class MyNewsItemsController < SessionController
 
   # Only allow a list of trusted parameters through.
   def news_item_params
-    params.require(:news_item).permit(:news, :title, :description, :link, :representative_id)
+    params.require(:news_item).permit(:news, :title, :description, :link, :issue, :representative_id)
   end
 end
