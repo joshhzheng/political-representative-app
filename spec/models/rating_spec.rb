@@ -3,6 +3,10 @@
 require 'rails_helper'
 require 'spec_helper'
 
+## TODO: should write more tests to check
+# validity of scores, invalid scores,
+# ratings with and without comments
+
 RSpec.describe Rating, type: :model do
   let(:representative) { Representative.create!(name: 'Jane Doe') }
   ## this could be refactored to use representative
