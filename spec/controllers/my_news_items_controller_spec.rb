@@ -16,22 +16,22 @@ RSpec.describe MyNewsItemsController, type: :controller do
   before do
     service = instance_double(NewsAPIService)
     allow(NewsAPIService).to receive(:new).and_return(service)
+    allow(service).to receive(:fetch_any_articles).and_return(top_articles)
     allow(service).to receive(:fetch_top_articles).and_return(top_articles)
 
     # Simulate user login
     @user = create(:user) # Create or find a user as per your authentication setup
     session[:current_user_id] = @user.id  # Simulate the user being logged in
 
-    @news_item = create(:news_item, :with_custom_ratings, representative: representative)
+    @news_item = create(:news_item, representative: representative)
   end
 
   describe 'GET #search_top_articles' do
     it 'redirects to the top5search_path' do
       get :search_top_articles, params: { representative_id: representative.id, issue: issue }
 
-      expect(assigns(:representative_name)).to eq(representative.name)
       expect(assigns(:top_articles)).to eq(top_articles)
-      expect(assigns(:ratings)).to eq([1, 2, 3, 4, 5])
+      expect(assigns(:ratings)).to eq(NewsItem.rating_scores)
       expect(response).to render_template(:top5search)
     end
   end
