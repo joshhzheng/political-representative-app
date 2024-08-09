@@ -29,7 +29,7 @@ class MyNewsItemsController < SessionController
 
     # TODO: change to fetch_top_articles
     # fetch_top_articles most of the time returns an empty list, hence why we're fetching_any_articles
-    @top_articles = NewsAPIService.new.fetch_any_articles(@representative_name, @issue)
+    @top_articles = NewsAPIService.new.fetch_top_articles(@representative_name, @issue)
     render :top5search
   end
 

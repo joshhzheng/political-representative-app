@@ -1,14 +1,44 @@
-%ul
-    - top5.each_with_index do |item, index|
-        %li
-            %p
-                %input{ type: 'radio', name: 'selected_item', value: index, id: "item_#{index}" }
-                %label{ for: "item_#{index}" }
-                    %strong Title:
-                    = item.title
-            %p
-                %strong Link:
-                %a{ href: item.url }= item.url
-            %p
-                %strong Description:
-                = item.description
+.row.mt-2
+    .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
+        %h1.text-center Edit news article
+
+    .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
+        .form-group.row
+            .col-sm-2
+                = label :representative, 'Representative:', class: 'col-form-label'
+            .col-sm-10
+                = link_to @representative_name, representative_path(@representative), class: 'form-control', target: '_blank'
+
+        .form-group.row
+            .col-sm-2
+                = label :issue, 'Issue:', class: 'col-form-label'
+            .col-sm-10
+                = text_field_tag :issue, @issue, class: 'form-control', readonly: true
+
+        .form-group.row
+            .col-sm-2
+                = label :articles, 'Select an article:', class: 'col-form-label'
+            .col-sm-10
+                %ul
+                    - top5.each_with_index do |item, index|
+                        %li
+                            %p
+                                %input{ type: 'radio', name: 'selected_item', value: index, id: "item_#{index}" }
+                                %label{ for: "item_#{index}" }
+                                    %strong Title:
+                                    = item.title
+                            %p
+                                %strong Link:
+                                %a{ href: item.url }= item.url
+                            %p
+                                %strong Description:
+                                = item.description
+
+        .form-group.row
+            .col-sm-2
+                = label :rating, 'Rating:', class: 'col-form-label'
+            .col-sm-10
+                = select_tag :rating, options_for_select((1..5).to_a, @ratings), class: 'form-control'
+
+        .actions
+            = submit_tag 'Save', cla
