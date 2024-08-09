@@ -3,15 +3,16 @@
 class MyNewsItemsController < SessionController
   before_action :set_representative
   before_action :set_representatives_list
-  before_action :set_news_item, only: %i[edit update destroy]
+  before_action :set_news_item, only: %i[update destroy]
   before_action :set_issue, only: %i[search_top_articles]
 
   def new
     @news_item = NewsItem.new
   end
 
-  # Adding this: This is the action that will render the select issue view when a user presses "Add New Article"
-  def select_issue; end
+  # Adding this: this will render the select query view
+  # when a user presses "Add New Article"
+  def select_query; end
 
   def create
     @news_item = NewsItem.new(news_item_params)
@@ -23,12 +24,13 @@ class MyNewsItemsController < SessionController
     end
   end
 
-  # Adding this, when a user presses "Search" I want this action to set up and call the API and render the search view to show the search results
+  # Adding this, when a user presses "Search" set up and call the API
+  # render the search view to show the search results
   def search_top_articles
     @articles = NewsApiService.new.fetch_top_articles(@representative.name, @issue)
     render :search
   end
-    
+
   def update
     if @news_item.update(news_item_params)
       redirect_to representative_news_item_path(@representative, @news_item),
@@ -52,11 +54,12 @@ class MyNewsItemsController < SessionController
     )
   end
 
-  # Adding this to set the issue variable up for controller / views if needed during search results and creation of a new page
+  # Adding this to set the issue variable up for controller / views
   def set_issue
     @issue = Representative.find(
       params[:issue]
     )
+  end
 
   def set_representatives_list
     @representatives_list = Representative.all.map { |r| [r.name, r.id] }
