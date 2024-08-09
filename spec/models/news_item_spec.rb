@@ -9,19 +9,19 @@ describe NewsItem do
   let(:five_representatives) { FactoryBot.create_list(:representative, 5) }
   let(:one_news_item) { FactoryBot.create(:news_item, representative: one_representative) }
   let(:ten_news_item) do
-    10.times do |i|
+    10.times do |_i|
       described_class.create(:news_item, representative: five_representatives.map(&:id))
     end
   end
 
   context 'when creating an item' do
-    it 'that is valid' do
+    it 'is valid' do
       expect(one_news_item).to be_valid
       expect(one_news_item).not_to be_nil
       expect(one_news_item.errors.full_messages).to be_empty
     end
 
-    context 'can search the database by' do
+    context 'when searching the database by' do
       it 'representative ID' do
         expect(described_class.find_by(representative_id: one_news_item.id)) \
           .to eq(one_news_item)
@@ -50,10 +50,10 @@ describe NewsItem do
   end
 
   context 'when associated with a representative ID' do
-    let(:representative_articles_search) {
+    let(:representative_articles_search) do
       one_news_item
       described_class.find_for(one_representative.id)
-    }
+    end
 
     it 'finds a news article with by representative ID' do
       expect(representative_articles_search).to eq(one_news_item)
@@ -64,12 +64,13 @@ describe NewsItem do
     end
   end
 
-  before do
-
-  end
-  context 'when searching by issue' do
-    it 'returns news items with that issue' do
-
+  describe 'when calling .issue_topics' do
+    it 'returns the correct list of possible issues' do
+      expected_issues = ['Free Speech', 'Immigration', 'Terrorism', 'Social Security and Medicare',
+                         'Abortion', 'Student Loans', 'Gun Control', 'Unemployment', 'Climate Change',
+                         'Homelessness', 'Racism', 'Tax Reform', 'Net Neutrality', 'Religious Freedom',
+                         'Border Security', 'Minimum Wage', 'Equal Pay']
+      expect(described_class.issue_topics).to eq(expected_issues)
     end
   end
 end

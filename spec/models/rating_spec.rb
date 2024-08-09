@@ -4,37 +4,38 @@ require 'rails_helper'
 require 'spec_helper'
 
 RSpec.describe Rating, type: :model do
-  let(:representative) { Representative.create!(name: "Jane Doe") }
+  let(:representative) { Representative.create!(name: 'Jane Doe') }
   ## this could be refactored to use representative
   # and news item factory methods
-  let(:news_item) { NewsItem.create!(representative: representative, title: "Breaking News", link: "https://example.com", issue: "Free Speech") }
+  let(:news_item) do
+    NewsItem.create!(representative: representative, title: 'Breaking News', link: 'https://example.com',
+                     issue: 'Free Speech')
+  end
 
-  context "validations" do
-    it "is valid with valid attributes" do
-      rating = news_item.ratings.build(score: 5, comment: "Great article!")
+  context 'validations' do
+    it 'is valid with valid attributes' do
+      rating = news_item.ratings.build(score: 5, comment: 'Great article!')
       expect(rating).to be_valid
     end
 
-    it "is not valid without a score" do
-      rating = news_item.ratings.build(comment: "Great article!")
+    it 'is not valid without a score' do
+      rating = news_item.ratings.build(comment: 'Great article!')
       expect(rating).not_to be_valid
     end
 
-    it "is not valid with a score outside 1-5" do
-      rating = news_item.ratings.build(score: 6, comment: "Great article!")
+    it 'is not valid with a score outside 1-5' do
+      rating = news_item.ratings.build(score: 6, comment: 'Great article!')
       expect(rating).not_to be_valid
     end
 
-    it "is valid without a comment" do
+    it 'is valid without a comment' do
       rating = news_item.ratings.build(score: 4)
       expect(rating).to be_valid
     end
   end
 
-  context "associations" do
-    it "belongs to a news item" do
-      rating = news_item.ratings.create!(score: 5, comment: "Great article!")
-      expect(rating.news_item).to eq(news_item)
-    end
+  it 'belongs to a news item' do
+    rating = news_item.ratings.create!(score: 5, comment: 'Great article!')
+    expect(rating.news_item).to eq(news_item)
   end
 end
