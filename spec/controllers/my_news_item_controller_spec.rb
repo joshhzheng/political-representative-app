@@ -17,6 +17,12 @@ RSpec.describe MyNewsItemsController, type: :controller do
     service = instance_double(NewsAPIService)
     allow(NewsAPIService).to receive(:new).and_return(service)
     allow(service).to receive(:fetch_top_articles).and_return(top_articles)
+
+    # Simulate user login
+    @user = create(:user) # Create or find a user as per your authentication setup
+    session[:current_user_id] = @user.id  # Simulate the user being logged in
+
+    @news_item = create(:news_item, :with_custom_ratings, representative: representative)
   end
 
   describe 'GET #search_top_articles' do
