@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Given('I am on the edit news article page') do
   visit edit_news_article_path
 end
@@ -28,7 +30,7 @@ end
 
 When('I choose the article {string} from the list') do |article_title|
   article = page.find('label', text: article_title)
-  radio_button_id = article[:for] 
+  radio_button_id = article[:for]
   choose(radio_button_id)
 end
 
@@ -45,5 +47,5 @@ Then('I should be redirected to the news articles page') do
 end
 
 Then('I should see the article details in a new tab') do
-  # not sure how to test if it opens in a new tab 
+  # not sure how to test if it opens in a new tab
 end

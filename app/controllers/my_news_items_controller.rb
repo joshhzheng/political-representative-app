@@ -4,13 +4,15 @@ class MyNewsItemsController < SessionController
   before_action :set_representative
   before_action :set_representatives_list
   before_action :set_news_item, only: %i[update destroy]
+  before_action :set_issues_list, only: %i[select_query]
   before_action :set_issue, only: %i[search_top_articles]
+  before_action :set_ratings, only: %i[search_top_articles]
 
   def new
     @news_item = NewsItem.new
   end
 
-  # Adding this: this will render the select query view
+  # this will render the select query view
   # when a user presses "Add New Article"
   def select_query; end
 
@@ -24,11 +26,12 @@ class MyNewsItemsController < SessionController
     end
   end
 
-  # Adding this, when a user presses "Search" set up and call the API
+  # When a user presses "Search", set up and call the API
   # render the search view to show the search results
   def search_top_articles
-    @articles = NewsApiService.new.fetch_top_articles(@representative.name, @issue)
-    render :search
+    @representative_name = @representative.name
+    @top_articles = NewsApiService.new.fetch_top_articles(@representative_name, @issue)
+    redirect_to top5search_path
   end
 
   def update
@@ -48,16 +51,26 @@ class MyNewsItemsController < SessionController
 
   private
 
-  def set_representative
-    @representative = Representative.find(
-      params[:representative_id]
-    )
+  # Use this to set up ratings parameter
+  def set_ratings
+    @ratings = NewsItem.ratings
   end
 
-  # Adding this to set the issue variable up for controller / views
+    # Use this to set the issue variable up for controller / views
   def set_issue
     @issue = Representative.find(
       params[:issue]
+    )
+  end
+
+  # Use this to set up the list of issues for the view
+  def set_issues_list
+    @issues = NewsItem.issues
+  end
+
+  def set_representative
+    @representative = Representative.find(
+      params[:representative_id]
     )
   end
 
@@ -68,9 +81,9 @@ class MyNewsItemsController < SessionController
   def set_news_item
     @news_item = NewsItem.find(params[:id])
   end
-
-  # Only allow a list of trusted parameters through.
+  
+  # Only allow a list of trusted parameters through
   def news_item_params
-    params.require(:news_item).permit(:news, :title, :description, :link, :issue, :representative_id)
+    params.require(:news_item).permit(:news, :title, :description, :link, :issue, :representative_id, :rating)
   end
 end

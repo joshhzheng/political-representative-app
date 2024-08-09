@@ -8,15 +8,15 @@
                 .col-sm-2
                     = label :representative, 'Representative:', class: 'col-form-label'
                 .col-sm-10
-                    -# @selected_representative_name gets the selected rep name from the controller
+                    -# @representative_name gets the selected rep name from the controller
                     -# make into hyperlink to rep's profile page when implemented
-                    = text_field_tag :representative, @selected_representative_name, class: 'form-control'
+                    = text_field_tag :representative, @representative_name, class: 'form-control'
             .form-group.row
                 .col-sm-2
                     = label :issue, 'Issue:', class: 'col-form-label'
                 .col-sm-10
-                    -# @selected_issue_name gets the selected issue from the controller
-                    = text_field_tag :issue, @selected_issue_name, class: 'form-control'
+                    -# @issue gets the selected issue from the controller
+                    = text_field_tag :issue, @issue, class: 'form-control'
 
             .form-group.row
                 .col-sm-2
@@ -42,7 +42,7 @@
                 .col-sm-2
                     = label :rating, 'Rating:', class: 'col-form-label'
                 .col-sm-10
-                    = select_tag :rating, options_for_select((1..5).to_a, params[:rating]), class: 'form-control'
+                    = select_tag :rating, options_for_select((1..5).to_a, @ratings), class: 'form-control'
 
             -# Handle POST request sent on clicking this save button
             .actions
