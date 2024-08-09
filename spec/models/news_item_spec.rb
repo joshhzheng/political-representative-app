@@ -5,9 +5,9 @@ require 'spec_helper'
 require 'google/apis/civicinfo_v2'
 
 describe NewsItem do
-  let(:one_representative) { FactoryBot.create_list(:representative, 1).first }
-  let(:five_representatives) { FactoryBot.create_list(:representative, 5) }
-  let(:one_news_item) { FactoryBot.create(:news_item, representative: one_representative) }
+  let(:one_representative) { create_list(:representative, 1).first }
+  let(:five_representatives) { create_list(:representative, 5) }
+  let(:one_news_item) { create(:news_item, representative: one_representative) }
   let(:ten_news_item) do
     10.times do |_i|
       described_class.create(:news_item, representative: five_representatives.map(&:id))

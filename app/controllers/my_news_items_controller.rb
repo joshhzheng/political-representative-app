@@ -30,7 +30,7 @@ class MyNewsItemsController < SessionController
   # render the search view to show the search results
   def search_top_articles
     @representative_name = @representative.name
-    @top_articles = NewsApiService.new.fetch_top_articles(@representative_name, @issue)
+    @top_articles = NewsAPIService.new.fetch_top_articles(@representative_name, @issue)
     render :top5search
   end
 
@@ -53,7 +53,7 @@ class MyNewsItemsController < SessionController
 
   # Use this to set up ratings parameter
   def set_ratings
-    @ratings = NewsItem.ratings
+    @ratings = NewsItem.rating_scores
   end
 
   # Use this to set the issue variable up for controller / views
@@ -63,7 +63,7 @@ class MyNewsItemsController < SessionController
 
   # Use this to set up the list of issues for the view
   def set_issues_list
-    @issues = NewsItem.issues
+    @issues = NewsItem.issue_topics
   end
 
   def set_representative

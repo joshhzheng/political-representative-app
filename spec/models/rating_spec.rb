@@ -44,6 +44,6 @@ RSpec.describe Rating, type: :model do
   end
 
   it 'understands valid ratings' do
-    expect(Rating.rating_scores).to eq(Array(1..5))
+    expect(described_class.rating_scores).to eq(Array(1..5))
   end
 end

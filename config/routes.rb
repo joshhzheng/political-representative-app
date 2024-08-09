@@ -42,6 +42,7 @@ Rails.application.routes.draw do
         # Custom route for search_top_articles
         get 'my_news_item/search_top_articles' => 'my_news_items#search_top_articles',
         :as => :search_top_articles
+        
     end
     get '/search/(:address)' => 'search#search', :as => 'search_representatives'
 end

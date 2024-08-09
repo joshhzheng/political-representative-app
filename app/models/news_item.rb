@@ -26,4 +26,8 @@ class NewsItem < ApplicationRecord
   def self.issue_topics
     ISSUES
   end
+
+  def self.rating_scores
+    [1, 2, 3, 4, 5]
+  end
 end
