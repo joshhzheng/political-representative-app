@@ -56,7 +56,7 @@ class MyNewsItemsController < SessionController
     @ratings = NewsItem.ratings
   end
 
-    # Use this to set the issue variable up for controller / views
+  # Use this to set the issue variable up for controller / views
   def set_issue
     @issue = Representative.find(
       params[:issue]
@@ -81,7 +81,7 @@ class MyNewsItemsController < SessionController
   def set_news_item
     @news_item = NewsItem.find(params[:id])
   end
-  
+
   # Only allow a list of trusted parameters through
   def news_item_params
     params.require(:news_item).permit(:news, :title, :description, :link, :issue, :representative_id, :rating)
