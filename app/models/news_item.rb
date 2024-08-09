@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+## TODO: could be useful to add method allowing creation of new
+# ISSUES topics
+## TODO: could be useful to add method calculating ratings
+
 class NewsItem < ApplicationRecord
   belongs_to :representative
   has_many :ratings, dependent: :delete_all
