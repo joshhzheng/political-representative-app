@@ -39,13 +39,13 @@ Rails.application.routes.draw do
         match '/representatives/:representative_id/my_news_item/:id', to:  'my_news_items#destroy',
                                                                       via: [:delete]
 
-    # Route to articles when user selects reps & issue
-    get '/representatives/:representative_id/my_news_item/new/top5search' => 'my_news_items#top5search',
+        # Route to articles when user selects reps & issue
+        get '/representatives/:representative_id/my_news_item/new/top5search' => 'my_news_items#top5search',
         :as => :top5search
 
-    # Custom route for search_top_articles
-    get '/representatives/:representative_id/my_news_item/search_top_articles' => 'my_news_items#search_top_articles',
+        # Custom route for search_top_articles
+        get '/representatives/:representative_id/my_news_item/search_top_articles' => 'my_news_items#search_top_articles',
         :as => :search_top_articles
-  end
+    end
     get '/search/(:address)' => 'search#search', :as => 'search_representatives'
 end
