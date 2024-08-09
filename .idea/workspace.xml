@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="39f1d17a-9616-403b-b4ad-c150467b937d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/rating.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/rating.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/spec/models/news_item_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/models/news_item_spec.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/spec/models/rating_spec.rb" beforeDir="false" afterPath="$PROJECT_DIR$/spec/models/rating_spec.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
