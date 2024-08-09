@@ -12,7 +12,7 @@ class MyNewsItemsController < SessionController
   end
 
   def create
-    @news_item = NewsItem.new(news_item_params)
+    @news_item = NewsItem.create!(news_item_params)
     if @news_item.save
       redirect_to representative_news_item_path(@representative, @news_item),
                   notice: 'News item was successfully created.'
