@@ -38,4 +38,8 @@ RSpec.describe Rating, type: :model do
     rating = news_item.ratings.create!(score: 5, comment: 'Great article!')
     expect(rating.news_item).to eq(news_item)
   end
+
+  it 'understands valid ratings' do
+    expect(Rating.rating_scores).to eq(Array(1..5))
+  end
 end
