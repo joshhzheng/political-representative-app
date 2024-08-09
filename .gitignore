@@ -18,6 +18,9 @@ pickle-email-*.html
 !/log/.keep
 !/tmp/.keep
 
+#Ignore .idea/workspace.xml
+.idea/workspace.xml
+
 # Note: It is not OK to publish secrets in repo, use figaro instead.
 config/initializers/secret_token.rb
 config/master.key

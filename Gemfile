@@ -31,6 +31,9 @@ gem 'haml-rails'
 # Google Civic Client
 gem 'google-api-client', '~> 0.34'
 
+# Google News Client
+gem 'news-api', '~> 0.0.0'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
@@ -51,7 +54,7 @@ group :development, :test do
   gem 'factory_bot'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.4'
 
   # Guard Plugins
   gem 'guard'
