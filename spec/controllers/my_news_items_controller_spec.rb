@@ -21,9 +21,9 @@ RSpec.describe MyNewsItemsController, type: :controller do
 
     # Simulate user login
     user = create(:user) # Create or find a user as per your authentication setup
-    session[:current_user_id] = user.id  # Simulate the user being logged in
+    session[:current_user_id] = user.id # Simulate the user being logged in
 
-    #news_item = create(:news_item, representative: representative)
+    # news_item = create(:news_item, representative: representative)
   end
 
   describe 'GET #search_top_articles' do
@@ -36,10 +36,11 @@ RSpec.describe MyNewsItemsController, type: :controller do
     end
   end
 
-  it 'does something' do
-    expect(NewsAPIService.new \
-                         .fetch_top_articles(
-                           "Joseph R. Biden", "Climate Change")) \
-      .to eq(6)
-  end
+  ## Area to understand basic API output
+  # it 'does something' do
+  #   expect(NewsAPIService.new \
+  #                        .fetch_top_articles(
+  #                          "Joseph R. Biden", "Climate Change")) \
+  #     .to eq(6)
+  # end
 end
