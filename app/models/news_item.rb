@@ -9,4 +9,10 @@ class NewsItem < ApplicationRecord
       representative_id: representative_id
     )
   end
+
+  def average_rating
+    ## Could be augmented to calculate average
+    # for each news article
+    ratings.average(:score).to_f
+  end
 end
