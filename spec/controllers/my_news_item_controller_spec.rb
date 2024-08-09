@@ -14,7 +14,9 @@ RSpec.describe MyNewsItemsController, type: :controller do
   end
 
   before do
-    allow(NewsAPIService).to receive(:get_top_articles).and_return(top_articles)
+    service = instance_double(NewsAPIService)
+    allow(NewsAPIService).to receive(:new).and_return(service)
+    allow(service).to receive(:fetch_top_articles).and_return(top_articles)
   end
 
   describe 'GET #search_top_articles' do
