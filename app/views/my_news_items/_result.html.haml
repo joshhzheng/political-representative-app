@@ -1,0 +1,14 @@
+%ul
+  - top5.each_with_index do |item, index|
+    %li
+      %p
+        %input{ type: 'radio', name: 'selected_item', value: index, id: "item_#{index}" }
+        %label{ for: "item_#{index}" }
+          %strong Title:
+          = item.title
+      %p
+        %strong Link:
+        %a{ href: item.url }= item.url
+      %p
+        %strong Description:
+        = item.description

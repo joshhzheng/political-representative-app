@@ -38,10 +38,12 @@ Rails.application.routes.draw do
                                                                       via: %i[put patch]
         match '/representatives/:representative_id/my_news_item/:id', to:  'my_news_items#destroy',
                                                                       via: [:delete]
+
+
+        # Custom route for search_top_articles
+        get 'my_news_item/search_top_articles' => 'my_news_items#search_top_articles',
+        :as => :search_top_articles
         
-        # route to "top 5 news" when user selected reps & issue
-        get '/representatives/:representative_id/my_news_item/new/top5search' => 'my_news_items#top5search',
-            :as                                                    => :top5search
     end
     get '/search/(:address)' => 'search#search', :as => 'search_representatives'
 end
