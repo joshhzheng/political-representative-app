@@ -3,20 +3,16 @@
 require 'rails_helper'
 require 'spec_helper'
 
-## TODO: should write more tests to check
-# validity of scores, invalid scores,
-# ratings with and without comments
+## TODO: refactor to use representative and news item factory methods
 
 RSpec.describe Rating, type: :model do
   let(:representative) { Representative.create!(name: 'Jane Doe') }
-  ## this could be refactored to use representative
-  # and news item factory methods
   let(:news_item) do
     NewsItem.create!(representative: representative, title: 'Breaking News', link: 'https://example.com',
                      issue: 'Free Speech')
   end
 
-  context 'validations' do
+  context 'when creating ratings' do
     it 'is valid with valid attributes' do
       rating = news_item.ratings.build(score: 5, comment: 'Great article!')
       expect(rating).to be_valid
