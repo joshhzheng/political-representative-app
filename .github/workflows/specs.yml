@@ -13,6 +13,7 @@ jobs:
           - ubuntu-22.04
     env:
             RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+            CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     steps:
       - name: Cache multiple paths
         uses: actions/cache@v2
