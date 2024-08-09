@@ -31,7 +31,7 @@ class MyNewsItemsController < SessionController
   def search_top_articles
     @representative_name = @representative.name
     @top_articles = NewsApiService.new.fetch_top_articles(@representative_name, @issue)
-    redirect_to top5search_path
+    render :top5search
   end
 
   def update
@@ -58,9 +58,7 @@ class MyNewsItemsController < SessionController
 
   # Use this to set the issue variable up for controller / views
   def set_issue
-    @issue = Representative.find(
-      params[:issue]
-    )
+    @issue = params[:issue]
   end
 
   # Use this to set up the list of issues for the view

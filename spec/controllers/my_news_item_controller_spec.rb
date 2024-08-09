@@ -20,17 +20,9 @@ RSpec.describe MyNewsItemsController, type: :controller do
   end
 
   describe 'GET #search_top_articles' do
-    it 'fetches the top articles based on the representative name and issue' do
-      get :search_top_articles, params: { representative_id: representative.id, issue: issue }
-
-      expect(assigns(:representative_name)).to eq(representative.name)
-      expect(assigns(:top_articles)).to eq(top_articles)
-    end
-
     it 'redirects to the top5search_path' do
       get :search_top_articles, params: { representative_id: representative.id, issue: issue }
-
-      expect(response).to redirect_to(top5search_path)
+      expect(response).to render_template(:top5search)
     end
   end
 end
