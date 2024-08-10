@@ -9,8 +9,8 @@ FactoryBot.define do
     issue { NewsItem::ISSUES.sample }
 
     # You can define traits for additional customization
-    trait :with_custom_ratings do
-    end
+    # trait :with_custom_ratings do
+    # end
   end
 end
 
