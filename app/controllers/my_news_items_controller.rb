@@ -68,7 +68,7 @@ class MyNewsItemsController < SessionController
 
   # Use this to set up the list of issues for the view
   def set_issues_list
-    @issues = NewsItem.issue_topics
+    @issue_list = NewsItem.issue_topics
   end
 
   def set_representative
