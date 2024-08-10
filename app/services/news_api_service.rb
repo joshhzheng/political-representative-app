@@ -7,8 +7,8 @@
 
 class NewsAPIService
   def initialize(api_key=Rails.application.credentials[:NEWS_API_KEY])
-    @news_api = News.new(api_key)
-    # @news_api = News.new('b21b7e9a6c904c89b1db179400918f04')
+    # @news_api = News.new(api_key)
+    @news_api = News.new('3738624a6fcd4b488069272795e12178')
   end
 
   def fetch_top_articles(representative_name, issue)
