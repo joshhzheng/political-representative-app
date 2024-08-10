@@ -7,6 +7,9 @@ class SearchController < ApplicationController
     address = params[:address]
 
     if address.blank?
+      # TODO: next line needs to be uncommented to log out after pull
+      # fix this!
+      # session[:current_user_id] = nil
       render 'representatives/index'
       return
     end
