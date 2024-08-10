@@ -6,9 +6,9 @@
 # The language is expected to be in English and the origin from the US.
 
 class NewsAPIService
-  def initialize(_api_key=Rails.application.credentials[:NEWS_API_KEY])
-    # @news_api = News.new(api_key)
-    @news_api = News.new('b21b7e9a6c904c89b1db179400918f04')
+  def initialize(api_key=Rails.application.credentials[:NEWS_API_KEY])
+    @news_api = News.new(api_key)
+    # @news_api = News.new('b21b7e9a6c904c89b1db179400918f04')
   end
 
   def fetch_top_articles(representative_name, issue)
@@ -18,6 +18,6 @@ class NewsAPIService
   end
 
   def fetch_any_articles(rep, issue)
-    @news_api.get_everything(q: "#{rep} #{issue}", language: 'en').take(5)
+    @news_api.get_everything(q: "#{rep} #{issue}", language: 'en', sortBy: 'popularity').take(5)
   end
 end

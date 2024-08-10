@@ -1,7 +1,7 @@
 Feature: Edit news article form
 
   Scenario: User views the edit news article form with prefilled data
-    Given I am on the edit news article page
+    Given I am on the edit news article page for Representative "1"
     Then I should see the Representative field prefilled with "John Doe"
     And I should see the Issue field prefilled with "Healthcare"
     And I should see a radio button list for articles

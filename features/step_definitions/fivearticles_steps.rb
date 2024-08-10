@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-Given('I am on the edit news article page') do
-  visit edit_news_article_path
+Given('I am on the edit news article page for Representative {string}') do |representative_id|
+  visit representative_search_top_articles_path(representative_id: representative_id)
+  @representative = Representative.find(representative_id)
+  @news_item = NewsItem.create!(title: 'Sample Article', description: 'This is a sample article.', link: 'http://example.com', issue: 'Immigration', representative: @representative, rating: 3)
 end
 
 Then('I should see the Representative field prefilled with {string}') do |expected_representative|
